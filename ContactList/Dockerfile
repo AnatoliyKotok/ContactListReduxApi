@@ -11,7 +11,7 @@ COPY . /src
 RUN dotnet restore "ContactList/ContactList.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "09-auth.csproj" -c Release -o /app/build
+RUN dotnet build "ContactList.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "ContactList.csproj" -c Release -o /app/publish
