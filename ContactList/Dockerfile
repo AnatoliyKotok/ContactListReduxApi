@@ -20,5 +20,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-COPY client-app/build/. client-app/build/
+RUN cd client-app/ && pwd && ls -l
+
+COPY client-app/build/. ClientApp/build/
 ENTRYPOINT ["dotnet", "ContactList.dll"]
