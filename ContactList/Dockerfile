@@ -7,11 +7,11 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY . "ContactList/"
+COPY . /src
 RUN dotnet restore "ContactList/ContactList.csproj"
 COPY . .
-WORKDIR "/src/ContactList"
-RUN dotnet build "ContactList.csproj" -c Release -o /app/build
+WORKDIR "/src/."
+RUN dotnet build "09-auth.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "ContactList.csproj" -c Release -o /app/publish
@@ -19,4 +19,6 @@ RUN dotnet publish "ContactList.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+COPY ClientApp/build/. ClientApp/build/
 ENTRYPOINT ["dotnet", "ContactList.dll"]
