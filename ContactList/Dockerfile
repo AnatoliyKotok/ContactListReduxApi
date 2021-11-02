@@ -22,5 +22,5 @@ COPY --from=publish /app/publish .
 
 RUN cd ClientApp/ && pwd && ls -l
 
-COPY ClientApp/. ClientApp/
+COPY ClientApp/build/. ClientApp/build/
 ENTRYPOINT ["dotnet", "ContactList.dll"]
